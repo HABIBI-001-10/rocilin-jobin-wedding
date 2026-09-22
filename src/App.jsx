@@ -12,7 +12,7 @@ import CrosshairCursor from './components/CrosshairCursor';
 
 export default function App() {
   const [isEngagement, setIsEngagement] = useState(false);
-  const [heroImageUrl, setHeroImageUrl] = useState('/couple-hero.jpg');
+  const [heroImageUrl, setHeroImageUrl] = useState(`${import.meta.env.BASE_URL}couple-hero.jpg`);
 
   // Detect ?view=engagement & custom hero image from URL on mount
   useEffect(() => {
