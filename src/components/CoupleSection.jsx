@@ -102,7 +102,7 @@ export default function CoupleSection() {
                   textTransform: 'uppercase',
                 }}
               >
-                ENGINEER // VELIYAMPARACH
+                ENGINEER // VELIYAMPARA
               </p>
             </div>
 
