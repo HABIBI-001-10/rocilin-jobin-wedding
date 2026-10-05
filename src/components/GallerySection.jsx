@@ -1,11 +1,12 @@
 import React, { useState, useCallback } from 'react';
 
-// Gallery placeholder images — using couple-hero.jpeg as the one real image
-// Other slots use elegant placeholder SVGs rendered inline
+// Images must be in /public and prefixed with BASE_URL for Vite subpath deployments
+const BASE = import.meta.env.BASE_URL;
+
 const GALLERY_ITEMS = [
   {
     id: 'g1',
-    src: '/couple_potrait.jpeg',
+    src: `${BASE}couple_potrait.jpeg`,
     alt: 'Rocilin & Jobin — couple portrait',
     aspectRatio: '3/4',
     isReal: true,
@@ -13,40 +14,40 @@ const GALLERY_ITEMS = [
   },
   {
     id: 'g2',
-    src: '/cherished_moment.jpeg',
-    alt: 'Memory — placeholder',
+    src: `${BASE}cherished_moment.jpeg`,
+    alt: 'A cherished moment',
     aspectRatio: '4/3',
     isReal: true,
     caption: 'A CHERISHED MOMENT',
   },
   {
     id: 'g3',
-    src: '/together.jpeg',
-    alt: 'Memory — placeholder',
+    src: `${BASE}together.jpeg`,
+    alt: 'Together',
     aspectRatio: '1/1',
     isReal: true,
     caption: 'TOGETHER',
   },
   {
     id: 'g4',
-    src: '/quiet_luxury.jpeg',
-    alt: 'Memory — placeholder',
+    src: `${BASE}quiet_luxury.jpeg`,
+    alt: 'Quiet luxury',
     aspectRatio: '3/4',
     isReal: true,
     caption: 'QUIET LUXURY',
   },
   {
     id: 'g5',
-    src: '/timeless_tradition.jpeg',
-    alt: 'Memory — placeholder',
+    src: `${BASE}timeless_tradition.jpeg`,
+    alt: 'Timeless tradition',
     aspectRatio: '16/9',
     isReal: true,
     caption: 'TIMELESS TRADITION',
   },
   {
     id: 'g6',
-    src: '/WhatsApp Image 2026-10-05.jpeg',
-    alt: 'Memory — placeholder',
+    src: `${BASE}modern_romance.jpeg`,
+    alt: 'Modern romance',
     aspectRatio: '4/3',
     isReal: true,
     caption: 'MODERN ROMANCE',
