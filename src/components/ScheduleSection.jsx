@@ -205,7 +205,7 @@ export default function ScheduleSection({ isEngagement }) {
               {/* Timeline Sequence */}
               <div style={{ marginBottom: '32px' }}>
                 <h4 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', letterSpacing: '0.18em', color: 'var(--color-gold)', marginBottom: '14px' }}>
-                  OPERATIONAL SEQUENCE
+                  CEREMONY TIMELINE
                 </h4>
                 <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '12px' }}>
                   <li style={{ display: 'flex', gap: '14px', alignItems: 'center' }}>
@@ -249,7 +249,7 @@ export default function ScheduleSection({ isEngagement }) {
                   </svg>
                   ADD TO CALENDAR (.ICS)
                 </button>
-                <a href="#rsvp" className="btn-primary">
+                <a href="#attendance" className="btn-primary">
                   CONFIRM FOR ENGAGEMENT
                 </a>
               </div>
@@ -343,7 +343,7 @@ export default function ScheduleSection({ isEngagement }) {
               {/* Timeline Sequence */}
               <div style={{ marginBottom: '32px' }}>
                 <h4 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', letterSpacing: '0.18em', color: 'var(--color-gold)', marginBottom: '14px' }}>
-                  OPERATIONAL SEQUENCE
+                  CEREMONY TIMELINE
                 </h4>
                 <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '12px' }}>
                   <li style={{ display: 'flex', gap: '14px', alignItems: 'center' }}>
@@ -399,7 +399,7 @@ export default function ScheduleSection({ isEngagement }) {
                 <a href="#venue" className="btn-secondary">
                   VIEW LOCATION MAP
                 </a>
-                <a href="#rsvp" className="btn-primary">
+                <a href="#attendance" className="btn-primary">
                   CONFIRM ATTENDANCE
                 </a>
               </div>

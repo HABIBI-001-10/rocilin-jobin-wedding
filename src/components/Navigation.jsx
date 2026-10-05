@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from 'react';
 
+const NAV_LINKS = [
+  { label: 'Home', href: '#hero' },
+  { label: 'Engagement', href: '#engagement' },
+  { label: 'Attire', href: '#attire' },
+  { label: 'Gallery', href: '#gallery' },
+  { label: 'Blessings', href: '#blessings' },
+];
+
 export default function Navigation({ isEngagement, onToggleView }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [audio, setAudio] = useState(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -14,12 +21,11 @@ export default function Navigation({ isEngagement, onToggleView }) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Ambient sound synthesizer using Web Audio API for a calm, romantic harmonic chime on toggle
   const toggleSound = () => {
     try {
       const AudioContext = window.AudioContext || window.webkitAudioContext;
       if (!AudioContext) return;
-      
+
       const ctx = new AudioContext();
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
@@ -41,6 +47,28 @@ export default function Navigation({ isEngagement, onToggleView }) {
     } catch (e) {
       console.log('Audio init prevented:', e);
     }
+  };
+
+  const navLinkStyle = {
+    fontFamily: 'var(--font-sans)',
+    fontSize: '0.78rem',
+    fontWeight: 500,
+    letterSpacing: '0.12em',
+    textTransform: 'uppercase',
+    color: 'var(--color-text)',
+    transition: 'color 0.2s',
+    textDecoration: 'none',
+  };
+
+  const mobileLinkStyle = {
+    fontFamily: 'var(--font-sans)',
+    fontSize: '0.9rem',
+    color: 'var(--color-text)',
+    textTransform: 'uppercase',
+    letterSpacing: '0.1em',
+    textDecoration: 'none',
+    display: 'block',
+    padding: '4px 0',
   };
 
   return (
@@ -69,7 +97,7 @@ export default function Navigation({ isEngagement, onToggleView }) {
           height: '70px',
         }}
       >
-        {/* Brand & Project Specs */}
+        {/* Brand */}
         <a
           href="#hero"
           style={{
@@ -95,7 +123,7 @@ export default function Navigation({ isEngagement, onToggleView }) {
               background: 'rgba(255, 255, 255, 0.7)',
             }}
           >
-            R&J
+            R&amp;J
           </div>
           <div>
             <div
@@ -132,109 +160,13 @@ export default function Navigation({ isEngagement, onToggleView }) {
           }}
           className="desktop-nav"
         >
-          <a
-            href="#couple"
-            style={{
-              fontFamily: 'var(--font-sans)',
-              fontSize: '0.78rem',
-              fontWeight: 500,
-              letterSpacing: '0.12em',
-              textTransform: 'uppercase',
-              color: 'var(--color-text)',
-              transition: 'color 0.2s',
-            }}
-          >
-            The Couple
-          </a>
-          <a
-            href="#story"
-            style={{
-              fontFamily: 'var(--font-sans)',
-              fontSize: '0.78rem',
-              fontWeight: 500,
-              letterSpacing: '0.12em',
-              textTransform: 'uppercase',
-              color: 'var(--color-text)',
-              transition: 'color 0.2s',
-            }}
-          >
-            Our Story
-          </a>
-          <a
-            href="#schedule"
-            style={{
-              fontFamily: 'var(--font-sans)',
-              fontSize: '0.78rem',
-              fontWeight: 500,
-              letterSpacing: '0.12em',
-              textTransform: 'uppercase',
-              color: 'var(--color-text)',
-              transition: 'color 0.2s',
-            }}
-          >
-            Schedule
-          </a>
-          <a
-            href="#venue"
-            style={{
-              fontFamily: 'var(--font-sans)',
-              fontSize: '0.78rem',
-              fontWeight: 500,
-              letterSpacing: '0.12em',
-              textTransform: 'uppercase',
-              color: 'var(--color-text)',
-              transition: 'color 0.2s',
-            }}
-          >
-            Venue
-          </a>
-          <a
-            href="#countdown"
-            style={{
-              fontFamily: 'var(--font-sans)',
-              fontSize: '0.78rem',
-              fontWeight: 500,
-              letterSpacing: '0.12em',
-              textTransform: 'uppercase',
-              color: 'var(--color-text)',
-              transition: 'color 0.2s',
-            }}
-          >
-            Countdown
-          </a>
+          {NAV_LINKS.map((link) => (
+            <a key={link.href} href={link.href} style={navLinkStyle}>
+              {link.label}
+            </a>
+          ))}
 
-          {/* Dynamic View Switcher Pill */}
-          <button
-            onClick={onToggleView}
-            title="Toggle between General Guest view and Engagement Guest view"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '6px',
-              padding: '6px 12px',
-              borderRadius: '20px',
-              border: `1px solid ${isEngagement ? 'var(--color-primary)' : 'var(--color-border-subtle)'}`,
-              background: isEngagement ? 'rgba(142, 17, 24, 0.08)' : 'rgba(255, 255, 255, 0.7)',
-              fontFamily: 'var(--font-mono)',
-              fontSize: '0.68rem',
-              letterSpacing: '0.08em',
-              color: isEngagement ? 'var(--color-primary)' : 'var(--color-gold)',
-              transition: 'all 0.25s ease',
-            }}
-          >
-            <span
-              style={{
-                width: '6px',
-                height: '6px',
-                borderRadius: '50%',
-                background: isEngagement ? 'var(--color-primary)' : 'var(--color-gold)',
-                display: 'inline-block',
-              }}
-            />
-            {isEngagement ? 'VIEW: ENGAGEMENT' : 'VIEW: DEFAULT'}
-          </button>
-
-          {/* Sound / Tone chime trigger */}
+          {/* Sound button */}
           <button
             onClick={toggleSound}
             title="Harmonic Tone Calibration"
@@ -248,18 +180,18 @@ export default function Navigation({ isEngagement, onToggleView }) {
               border: '1px solid var(--color-border-subtle)',
               background: 'rgba(255, 255, 255, 0.6)',
               color: 'var(--color-primary)',
+              cursor: 'pointer',
             }}
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
               <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
-              <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
             </svg>
           </button>
 
-          {/* RSVP Button */}
+          {/* Will You Join Us CTA */}
           <a
-            href="#rsvp"
+            href="#attendance"
             className="btn-primary"
             style={{
               padding: '9px 18px',
@@ -267,21 +199,23 @@ export default function Navigation({ isEngagement, onToggleView }) {
               letterSpacing: '0.14em',
             }}
           >
-            RSVP
+            WILL YOU JOIN US?
           </a>
         </nav>
 
-        {/* Mobile Menu Toggle Button */}
+        {/* Mobile Menu Toggle */}
         <div style={{ display: 'none' }} className="mobile-toggle-wrapper">
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle Navigation Menu"
+            aria-expanded={mobileMenuOpen}
             style={{
               padding: '8px',
               color: 'var(--color-primary)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
+              cursor: 'pointer',
             }}
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -304,80 +238,33 @@ export default function Navigation({ isEngagement, onToggleView }) {
             padding: '20px 24px 30px',
             display: 'flex',
             flexDirection: 'column',
-            gap: '16px',
+            gap: '14px',
           }}
         >
-          <a
-            href="#couple"
-            onClick={() => setMobileMenuOpen(false)}
-            style={{ fontFamily: 'var(--font-sans)', fontSize: '0.9rem', color: 'var(--color-text)', textTransform: 'uppercase', letterSpacing: '0.1em' }}
-          >
-            The Couple
-          </a>
-          <a
-            href="#story"
-            onClick={() => setMobileMenuOpen(false)}
-            style={{ fontFamily: 'var(--font-sans)', fontSize: '0.9rem', color: 'var(--color-text)', textTransform: 'uppercase', letterSpacing: '0.1em' }}
-          >
-            Our Story
-          </a>
-          <a
-            href="#schedule"
-            onClick={() => setMobileMenuOpen(false)}
-            style={{ fontFamily: 'var(--font-sans)', fontSize: '0.9rem', color: 'var(--color-text)', textTransform: 'uppercase', letterSpacing: '0.1em' }}
-          >
-            Schedule
-          </a>
-          <a
-            href="#venue"
-            onClick={() => setMobileMenuOpen(false)}
-            style={{ fontFamily: 'var(--font-sans)', fontSize: '0.9rem', color: 'var(--color-text)', textTransform: 'uppercase', letterSpacing: '0.1em' }}
-          >
-            Venue
-          </a>
-          <a
-            href="#countdown"
-            onClick={() => setMobileMenuOpen(false)}
-            style={{ fontFamily: 'var(--font-sans)', fontSize: '0.9rem', color: 'var(--color-text)', textTransform: 'uppercase', letterSpacing: '0.1em' }}
-          >
-            Countdown
-          </a>
-
-          {/* View Mode Switcher in Mobile */}
-          <div style={{ paddingTop: '8px', borderTop: '1px solid var(--color-border-subtle)' }}>
-            <button
-              onClick={() => {
-                onToggleView();
-                setMobileMenuOpen(false);
-              }}
-              style={{
-                width: '100%',
-                padding: '12px',
-                border: '1px solid var(--color-primary)',
-                background: isEngagement ? 'rgba(142, 17, 24, 0.08)' : '#FFF',
-                color: 'var(--color-primary)',
-                borderRadius: '4px',
-                fontFamily: 'var(--font-mono)',
-                fontSize: '0.78rem',
-                letterSpacing: '0.1em',
-              }}
+          {NAV_LINKS.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              onClick={() => setMobileMenuOpen(false)}
+              style={mobileLinkStyle}
             >
-              SWITCH VIEW: {isEngagement ? 'SWITCH TO DEFAULT (MATRIMONY)' : 'SWITCH TO ENGAGEMENT VIEW'}
-            </button>
-          </div>
+              {link.label}
+            </a>
+          ))}
 
-          <a
-            href="#rsvp"
-            onClick={() => setMobileMenuOpen(false)}
-            className="btn-primary"
-            style={{ textAlign: 'center', width: '100%', marginTop: '6px' }}
-          >
-            RSVP NOW
-          </a>
+          <div style={{ paddingTop: '8px', borderTop: '1px solid var(--color-border-subtle)' }}>
+            <a
+              href="#attendance"
+              onClick={() => setMobileMenuOpen(false)}
+              className="btn-primary"
+              style={{ textAlign: 'center', width: '100%', marginTop: '6px', display: 'flex', justifyContent: 'center' }}
+            >
+              WILL YOU JOIN US?
+            </a>
+          </div>
         </div>
       )}
 
-      {/* Style for responsive navigation hiding */}
       <style>{`
         @media (max-width: 900px) {
           .desktop-nav {

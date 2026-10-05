@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { AmbientGear, ProtractorArc, DimensionLine } from './EngineeringSVGs';
 
-export default function HeroSection({ heroImageUrl = '/couple-hero.jpg', isEngagement }) {
+export default function HeroSection({
+  heroImageUrl = '/couple-hero.jpeg',
+  isEngagement,
+}) {
   const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
       setScrollY(window.scrollY);
     };
+
     window.addEventListener('scroll', handleScroll, { passive: true });
+
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -24,6 +29,15 @@ export default function HeroSection({ heroImageUrl = '/couple-hero.jpg', isEngag
         justifyContent: 'center',
         overflow: 'hidden',
         padding: '100px 24px 60px',
+        backgroundImage: `
+          linear-gradient(
+            rgba(0, 0, 0, 0.02),
+            rgba(0, 0, 0, 0.02)
+          ),
+          url('/couple-hero.jpeg')
+        `,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
       }}
     >
       {/* Background Image Container with Parallax & Slow Zoom */}
@@ -43,7 +57,7 @@ export default function HeroSection({ heroImageUrl = '/couple-hero.jpg', isEngag
         }}
       />
 
-      {/* Luxury Warm Ivory & Burgundy Tint Overlay + Radial Vignette */}
+      {/* Light Luxury Overlay */}
       <div
         style={{
           position: 'absolute',
@@ -51,15 +65,27 @@ export default function HeroSection({ heroImageUrl = '/couple-hero.jpg', isEngag
           left: 0,
           right: 0,
           bottom: 0,
+
           background: `
-            radial-gradient(ellipse at center, rgba(248, 245, 239, 0.72) 0%, rgba(248, 245, 239, 0.88) 55%, rgba(248, 245, 239, 0.97) 100%),
-            linear-gradient(180deg, rgba(248, 245, 239, 0.5) 0%, rgba(142, 17, 24, 0.04) 50%, rgba(248, 245, 239, 0.95) 100%)
+            radial-gradient(
+              ellipse at center,
+              rgba(248, 245, 239, 0.05) 0%,
+              rgba(248, 245, 239, 0.08) 55%,
+              rgba(248, 245, 239, 0.22) 100%
+            ),
+            linear-gradient(
+              180deg,
+              rgba(248, 245, 239, 0.12) 0%,
+              rgba(0, 0, 0, 0.04) 50%,
+              rgba(248, 245, 239, 0.28) 100%
+            )
           `,
+
           zIndex: 2,
         }}
       />
 
-      {/* SVG Engineering Construction Blueprint Elements (Floating Layer) */}
+      {/* SVG Engineering Construction Blueprint Elements */}
       <div
         style={{
           position: 'absolute',
@@ -73,18 +99,46 @@ export default function HeroSection({ heroImageUrl = '/couple-hero.jpg', isEngag
         }}
       >
         {/* Top-Right Ambient Gear */}
-        <div style={{ position: 'absolute', top: '40px', right: '-40px', opacity: 0.45 }}>
+        <div
+          style={{
+            position: 'absolute',
+            top: '40px',
+            right: '-40px',
+            opacity: 0.45,
+          }}
+        >
           <AmbientGear size={280} color="var(--color-gold)" />
         </div>
 
         {/* Bottom-Left Ambient Reverse Gear */}
-        <div style={{ position: 'absolute', bottom: '-60px', left: '-50px', opacity: 0.35 }}>
-          <AmbientGear size={320} color="var(--color-gold)" reverse={true} />
+        <div
+          style={{
+            position: 'absolute',
+            bottom: '-60px',
+            left: '-50px',
+            opacity: 0.35,
+          }}
+        >
+          <AmbientGear
+            size={320}
+            color="var(--color-gold)"
+            reverse={true}
+          />
         </div>
 
         {/* Top Left Protractor Arc */}
-        <div style={{ position: 'absolute', top: '120px', left: '4%', opacity: 0.4 }}>
-          <ProtractorArc size={220} color="var(--color-gold)" />
+        <div
+          style={{
+            position: 'absolute',
+            top: '120px',
+            left: '4%',
+            opacity: 0.4,
+          }}
+        >
+          <ProtractorArc
+            size={220}
+            color="var(--color-gold)"
+          />
         </div>
 
         {/* Architectural Center Reticle Rings */}
@@ -101,12 +155,53 @@ export default function HeroSection({ heroImageUrl = '/couple-hero.jpg', isEngag
           viewBox="0 0 600 600"
           fill="none"
         >
-          <circle cx="300" cy="300" r="280" stroke="var(--color-gold)" strokeWidth="0.75" strokeDasharray="4 6" />
-          <circle cx="300" cy="300" r="230" stroke="var(--color-primary)" strokeWidth="0.5" opacity="0.4" />
-          <circle cx="300" cy="300" r="160" stroke="var(--color-gold)" strokeWidth="0.75" strokeDasharray="2 4" />
+          <circle
+            cx="300"
+            cy="300"
+            r="280"
+            stroke="var(--color-gold)"
+            strokeWidth="0.75"
+            strokeDasharray="4 6"
+          />
+
+          <circle
+            cx="300"
+            cy="300"
+            r="230"
+            stroke="var(--color-primary)"
+            strokeWidth="0.5"
+            opacity="0.4"
+          />
+
+          <circle
+            cx="300"
+            cy="300"
+            r="160"
+            stroke="var(--color-gold)"
+            strokeWidth="0.75"
+            strokeDasharray="2 4"
+          />
+
           {/* Axis cross lines */}
-          <line x1="300" y1="20" x2="300" y2="580" stroke="var(--color-gold)" strokeWidth="0.5" strokeDasharray="3 5" />
-          <line x1="20" y1="300" x2="580" y2="300" stroke="var(--color-gold)" strokeWidth="0.5" strokeDasharray="3 5" />
+          <line
+            x1="300"
+            y1="20"
+            x2="300"
+            y2="580"
+            stroke="var(--color-gold)"
+            strokeWidth="0.5"
+            strokeDasharray="3 5"
+          />
+
+          <line
+            x1="20"
+            y1="300"
+            x2="580"
+            y2="300"
+            stroke="var(--color-gold)"
+            strokeWidth="0.5"
+            strokeDasharray="3 5"
+          />
         </svg>
 
         {/* Blueprint Framing Corner Ticks */}
@@ -123,7 +218,7 @@ export default function HeroSection({ heroImageUrl = '/couple-hero.jpg', isEngag
         />
       </div>
 
-      {/* Main Hero Content (Foremost Layer) */}
+      {/* Main Hero Content */}
       <div
         className="container"
         style={{
@@ -159,8 +254,10 @@ export default function HeroSection({ heroImageUrl = '/couple-hero.jpg', isEngag
               letterSpacing: '0.02em',
             }}
           >
-            &ldquo;Therefore what God has joined together, let no one separate.&rdquo;
+            &ldquo;Therefore what God has joined together, let no one
+            separate.&rdquo;
           </p>
+
           <div
             style={{
               display: 'flex',
@@ -170,7 +267,14 @@ export default function HeroSection({ heroImageUrl = '/couple-hero.jpg', isEngag
               marginTop: '6px',
             }}
           >
-            <span style={{ width: '24px', height: '1px', background: 'var(--color-gold)' }} />
+            <span
+              style={{
+                width: '24px',
+                height: '1px',
+                background: 'var(--color-gold)',
+              }}
+            />
+
             <span
               style={{
                 fontFamily: 'var(--font-mono)',
@@ -182,7 +286,14 @@ export default function HeroSection({ heroImageUrl = '/couple-hero.jpg', isEngag
             >
               MARK 10:9
             </span>
-            <span style={{ width: '24px', height: '1px', background: 'var(--color-gold)' }} />
+
+            <span
+              style={{
+                width: '24px',
+                height: '1px',
+                background: 'var(--color-gold)',
+              }}
+            />
           </div>
         </div>
 
@@ -201,7 +312,12 @@ export default function HeroSection({ heroImageUrl = '/couple-hero.jpg', isEngag
         </div>
 
         {/* Bride & Groom Prominent Names */}
-        <div style={{ position: 'relative', margin: '14px 0 24px' }}>
+        <div
+          style={{
+            position: 'relative',
+            margin: '14px 0 24px',
+          }}
+        >
           <h1
             style={{
               fontFamily: 'var(--font-serif-display)',
@@ -214,6 +330,7 @@ export default function HeroSection({ heroImageUrl = '/couple-hero.jpg', isEngag
             }}
           >
             ROCILIN
+
             <span
               style={{
                 display: 'block',
@@ -228,6 +345,7 @@ export default function HeroSection({ heroImageUrl = '/couple-hero.jpg', isEngag
             >
               &amp;
             </span>
+
             JOBIN
           </h1>
         </div>
@@ -267,7 +385,7 @@ export default function HeroSection({ heroImageUrl = '/couple-hero.jpg', isEngag
           LITTLE FLOWER CHURCH, KADUVAKKULAM
         </p>
 
-        {/* Engagement Notice Pill if Engagement View */}
+        {/* Engagement Notice Pill */}
         {isEngagement && (
           <div style={{ marginTop: '16px' }}>
             <span
@@ -301,14 +419,23 @@ export default function HeroSection({ heroImageUrl = '/couple-hero.jpg', isEngag
             marginTop: '36px',
           }}
         >
-          <a href="#rsvp" className="btn-primary">
-            CONFIRM ATTENDANCE
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <a href="#attendance" className="btn-primary">
+            WILL YOU JOIN US?
+
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
           </a>
-          <a href="#schedule" className="btn-secondary">
-            EVENT TIMELINE
+
+          <a href="#engagement" className="btn-secondary">
+            OUR ENGAGEMENT
           </a>
         </div>
 
@@ -339,7 +466,7 @@ export default function HeroSection({ heroImageUrl = '/couple-hero.jpg', isEngag
       {/* Delicate Scroll Down Cue */}
       <a
         href="#couple"
-        aria-label="Scroll to couple details"
+        aria-label="Scroll down"
         style={{
           position: 'absolute',
           bottom: '20px',
@@ -355,9 +482,16 @@ export default function HeroSection({ heroImageUrl = '/couple-hero.jpg', isEngag
           transition: 'opacity 0.2s',
         }}
       >
-        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.62rem', letterSpacing: '0.2em' }}>
+        <span
+          style={{
+            fontFamily: 'var(--font-mono)',
+            fontSize: '0.62rem',
+            letterSpacing: '0.2em',
+          }}
+        >
           SCROLL
         </span>
+
         <svg
           width="16"
           height="16"
@@ -366,7 +500,9 @@ export default function HeroSection({ heroImageUrl = '/couple-hero.jpg', isEngag
           stroke="currentColor"
           strokeWidth="1.5"
           className="float-gentle"
-          style={{ animation: 'floatGentle 2.4s ease-in-out infinite' }}
+          style={{
+            animation: 'floatGentle 2.4s ease-in-out infinite',
+          }}
         >
           <path d="M12 5v14M5 12l7 7 7-7" />
         </svg>

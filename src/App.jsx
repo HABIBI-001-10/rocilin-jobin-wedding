@@ -1,31 +1,37 @@
 import React, { useState, useEffect } from 'react';
+import OpeningPage from './components/OpeningPage';
 import Navigation from './components/Navigation';
 import HeroSection from './components/HeroSection';
 import CoupleSection from './components/CoupleSection';
-import StorySection from './components/StorySection';
-import ScheduleSection from './components/ScheduleSection';
-import VenueSection from './components/VenueSection';
-import CountdownSection from './components/CountdownSection';
+import EngagementSection from './components/EngagementSection';
+import AttireSection from './components/AttireSection';
+import GallerySection from './components/GallerySection';
+import BlessingsSection from './components/BlessingsSection';
 import RsvpSection from './components/RsvpSection';
+import CountdownSection from './components/CountdownSection';
 import FooterSection from './components/FooterSection';
 import CrosshairCursor from './components/CrosshairCursor';
 
 export default function App() {
+  const [showOpening, setShowOpening] = useState(true);
   const [isEngagement, setIsEngagement] = useState(false);
-  const [heroImageUrl, setHeroImageUrl] = useState(`${import.meta.env.BASE_URL}couple-hero.jpg`);
+  const [heroImageUrl, setHeroImageUrl] = useState(`${import.meta.env.BASE_URL}couple-hero.jpeg`);
 
   // Detect ?view=engagement & custom hero image from URL on mount
   useEffect(() => {
     try {
       const params = new URLSearchParams(window.location.search);
-      
-      // Check view query param
+
+      // Auto-skip opening if returning directly to a section
+      if (window.location.hash && window.location.hash.length > 1) {
+        setShowOpening(false);
+      }
+
       const viewParam = params.get('view');
       if (viewParam && viewParam.toLowerCase() === 'engagement') {
         setIsEngagement(true);
       }
 
-      // Check dynamic hero image override param if provided
       const customImg = params.get('hero') || params.get('img');
       if (customImg) {
         setHeroImageUrl(customImg);
@@ -35,23 +41,18 @@ export default function App() {
     }
   }, []);
 
-  // View toggle function with URL sync (for preview and guest switching)
-  const handleToggleView = () => {
-    setIsEngagement((prev) => {
-      const nextState = !prev;
-      const url = new URL(window.location.href);
-      if (nextState) {
-        url.searchParams.set('view', 'engagement');
-      } else {
-        url.searchParams.delete('view');
-      }
-      window.history.pushState({}, '', url.toString());
-      return nextState;
-    });
+  // When opening page is dismissed, unlock body scroll
+  const handleOpenInvitation = () => {
+    setShowOpening(false);
+    // Scroll to top when main content appears
+    window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
   return (
     <div className="wedding-app-root">
+      {/* Opening invitation overlay */}
+      {showOpening && <OpeningPage onOpen={handleOpenInvitation} />}
+
       {/* Precision Blueprint Corner Trims */}
       <div className="page-trim-tl" aria-hidden="true" />
       <div className="page-trim-tr" aria-hidden="true" />
@@ -61,34 +62,37 @@ export default function App() {
       {/* Desktop Crosshair Reticle Follower */}
       <CrosshairCursor />
 
-      {/* Top Fixed Navigation & View Indicator */}
-      <Navigation isEngagement={isEngagement} onToggleView={handleToggleView} />
+      {/* Top Fixed Navigation */}
+      <Navigation isEngagement={isEngagement} onToggleView={() => setIsEngagement((p) => !p)} />
 
       {/* Main Sections */}
       <main>
-        {/* Hero Section with Couple Portrait, SVG Gears & Verse */}
+        {/* 1. Hero Section with Couple Portrait */}
         <HeroSection heroImageUrl={heroImageUrl} isEngagement={isEngagement} />
 
-        {/* Bride & Groom Details with Connecting Blueprint Dimension */}
+        {/* 2. Bride & Groom Details */}
         <CoupleSection />
 
-        {/* "Designed To Last" Infinity Blueprint & Journey Milestones */}
-        <StorySection />
+        {/* 3. The Engagement — Venue Presentation */}
+        <EngagementSection />
 
-        {/* Dynamic Schedule (Holy Matrimony +/- Engagement Cards) */}
-        <ScheduleSection isEngagement={isEngagement} />
+        {/* 4. Attire & Aesthetic — Colour palette, inspiration */}
+        <AttireSection />
 
-        {/* Church & Grounds Location Map with GPS Specifications */}
-        <VenueSection isEngagement={isEngagement} />
+        {/* 5. Gallery — Moments */}
+        <GallerySection />
 
-        {/* Chronometric Precision Countdown to 07 Nov 2026, 11:00 AM IST */}
+        {/* 6. Countdown */}
         <CountdownSection />
 
-        {/* Dynamic RSVP Manifest Form with Attendance Calibration */}
+        {/* 7. Blessings */}
+        <BlessingsSection />
+
+        {/* 8. Will You Join Us? — Attendance */}
         <RsvpSection isEngagement={isEngagement} />
       </main>
 
-      {/* Footer with "APPROVED FOR FOREVER" Seal */}
+      {/* Footer */}
       <FooterSection />
     </div>
   );
