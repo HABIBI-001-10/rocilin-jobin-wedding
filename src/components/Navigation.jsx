@@ -189,6 +189,35 @@ export default function Navigation({ isEngagement, onToggleView }) {
             </svg>
           </button>
 
+          {/* View Toggle: Wedding ↔ Engagement */}
+          <button
+            onClick={onToggleView}
+            title={isEngagement ? 'Switch to Wedding View' : 'Switch to Engagement View'}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              padding: '6px 12px',
+              borderRadius: '20px',
+              border: '1px solid var(--color-border-subtle)',
+              background: isEngagement ? 'var(--color-primary)' : 'rgba(255, 255, 255, 0.6)',
+              color: isEngagement ? '#FFF' : 'var(--color-primary)',
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.66rem',
+              fontWeight: 600,
+              letterSpacing: '0.1em',
+              cursor: 'pointer',
+              transition: 'all 0.25s ease',
+              textTransform: 'uppercase',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3" />
+            </svg>
+            {isEngagement ? 'WEDDING' : 'ENGAGEMENT'}
+          </button>
+
           {/* Will You Join Us CTA */}
           <a
             href="#attendance"
