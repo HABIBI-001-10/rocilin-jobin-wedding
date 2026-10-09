@@ -117,7 +117,7 @@ export default function FooterSection({ isEngagement }) {
                 fontWeight: 500,
               }}
             >
-              Sicilin Sebastian, Merin Rose Sebastian
+              Sicilin Sebastian, Merin Rose Sebastian, Jomol Michael
             </p>
           </div>
         )}
