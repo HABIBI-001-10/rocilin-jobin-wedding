@@ -16,7 +16,7 @@ const GALLERY_ITEMS = [
     id: 'g2',
     src: `${BASE}cherished_moment.jpeg`,
     alt: 'A cherished moment',
-    aspectRatio: '4/3',
+    aspectRatio: '3/4',
     isReal: true,
     caption: 'A CHERISHED MOMENT',
   },
