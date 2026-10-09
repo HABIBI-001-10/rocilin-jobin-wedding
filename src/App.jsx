@@ -102,7 +102,7 @@ export default function App() {
         {!isEngagement && <VenueSection isEngagement={false} />}
 
         {/* ── 6. ATTIRE & AESTHETIC ── */}
-        <AttireSection />
+        <AttireSection isEngagement={isEngagement} />
 
         {/* ── 7. GALLERY ── */}
         <GallerySection />

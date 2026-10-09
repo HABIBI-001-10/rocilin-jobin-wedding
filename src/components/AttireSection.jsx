@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { DimensionLine } from './EngineeringSVGs';
 
-const COLOR_PALETTE = [
+/* ─── ENGAGEMENT PALETTE & CARDS (Preserved for Engagement View) ─── */
+const ENGAGEMENT_COLOR_PALETTE = [
   { name: 'IVORY', hex: '#F8F5EF', label: 'Warm ivory / cream' },
   { name: 'WARM CREAM', hex: '#EFE7D8', label: 'Soft champagne' },
   { name: 'DUSTY ROSE', hex: '#D8B8B8', label: 'Muted blush' },
@@ -10,7 +11,7 @@ const COLOR_PALETTE = [
   { name: 'ANTIQUE GOLD', hex: '#B89B5E', label: 'Handcrafted metallic' },
 ];
 
-const AESTHETIC_WORDS = [
+const ENGAGEMENT_AESTHETIC_WORDS = [
   'QUIET LUXURY',
   'TIMELESS TRADITION',
   'SOFT PASTELS',
@@ -20,7 +21,7 @@ const AESTHETIC_WORDS = [
   'MODERN ROMANCE',
 ];
 
-const ATTIRE_CARDS = [
+const ENGAGEMENT_ATTIRE_CARDS = [
   {
     code: '01',
     title: 'OFF-WHITE',
@@ -44,7 +45,57 @@ const ATTIRE_CARDS = [
   },
 ];
 
-function ColorSwatch({ name, hex, label }) {
+/* ─── WEDDING PALETTE & CARDS (Sophisticated Deep Burgundy & Dark Cherry) ─── */
+const WEDDING_COLOR_PALETTE = [
+  { name: 'DEEP BURGUNDY', hex: '#5E1C2C', label: 'Royal velvet wine' },
+  { name: 'DARK CHERRY', hex: '#3B0100', label: 'Deep romantic dusk' },
+  { name: 'BLACK CHERRY', hex: '#25071D', label: 'Midnight plum tone' },
+  { name: 'MAROON', hex: '#250909', label: 'Timeless deep earth' },
+  { name: 'CRIMSON', hex: '#410420', label: 'Passionate ruby warmth' },
+  { name: 'WARM IVORY', hex: '#F7F3EB', label: 'Luminous contrast cream' },
+];
+
+const WEDDING_AESTHETIC_WORDS = [
+  'DEEP BURGUNDY ROMANCE',
+  'DARK CHERRY OPULENCE',
+  'SACRED MAJESTY',
+  'BLACK-CHERRY ACCENTS',
+  'CRIMSON SILK & VELVET',
+  'ANTIQUE GOLD EMBELLISHMENTS',
+  'WARM IVORY CONTRAST',
+  'REGAL EVENING ELEGANCE',
+];
+
+const WEDDING_ATTIRE_CARDS = [
+  {
+    code: '01',
+    title: 'BURGUNDY & CRIMSON',
+    desc: 'Rich wine / dark cherry / royal crimson tones',
+    detail: 'Opulent Kanchipuram and Banarasi silk sarees, rich velvet lehengas, and royal bandhgalas or sherwanis in deep burgundy and crimson.',
+    color: '#5E1C2C',
+    accentBorder: '#8E1118',
+  },
+  {
+    code: '02',
+    title: 'WARM IVORY & GOLD',
+    desc: 'Luminous contrast & antique gold metallics',
+    detail: 'Crisp ivory dhotis, raw silk kurtas, and elegant cream ensembles embellished with understated antique gold kasavu borders for graceful contrast.',
+    color: '#F7F3EB',
+    accentBorder: '#B89B5E',
+  },
+  {
+    code: '03',
+    title: 'BLACK CHERRY & MAROON',
+    desc: 'Midnight plum / deep maroon formal wear',
+    detail: 'Classic tailored formal suits, midnight-cherry blazers, and stately evening attire echoing the depth of our Holy Matrimony palette.',
+    color: '#25071D',
+    accentBorder: '#410420',
+  },
+];
+
+function ColorSwatch({ name, hex, label, isWedding }) {
+  const isLight = hex.toUpperCase() === '#F7F3EB' || hex.toUpperCase() === '#F8F5EF' || hex.toUpperCase() === '#EFE7D8';
+
   return (
     <div
       style={{
@@ -56,34 +107,94 @@ function ColorSwatch({ name, hex, label }) {
     >
       <div
         style={{
-          width: '72px',
-          height: '72px',
-          borderRadius: '2px',
+          width: '74px',
+          height: '74px',
+          borderRadius: '3px',
           background: hex,
-          border: '1px solid var(--color-border-subtle)',
-          boxShadow: '0 4px 12px rgba(41, 38, 36, 0.06)',
+          border: isLight
+            ? '1.5px solid rgba(94, 28, 44, 0.28)'
+            : '1px solid rgba(184, 155, 94, 0.45)',
+          boxShadow: isWedding
+            ? '0 6px 16px rgba(37, 7, 29, 0.15)'
+            : '0 4px 12px rgba(41, 38, 36, 0.06)',
           transition: 'transform 0.3s ease, box-shadow 0.3s ease',
           cursor: 'default',
+          position: 'relative',
         }}
         onMouseEnter={(e) => {
           e.currentTarget.style.transform = 'translateY(-4px)';
-          e.currentTarget.style.boxShadow = '0 10px 24px rgba(41, 38, 36, 0.12)';
+          e.currentTarget.style.boxShadow = isWedding
+            ? '0 12px 28px rgba(94, 28, 44, 0.35)'
+            : '0 10px 24px rgba(41, 38, 36, 0.12)';
         }}
         onMouseLeave={(e) => {
           e.currentTarget.style.transform = 'translateY(0)';
-          e.currentTarget.style.boxShadow = '0 4px 12px rgba(41, 38, 36, 0.06)';
+          e.currentTarget.style.boxShadow = isWedding
+            ? '0 6px 16px rgba(37, 7, 29, 0.15)'
+            : '0 4px 12px rgba(41, 38, 36, 0.06)';
         }}
-      />
+      >
+        {/* Subtle corner highlight */}
+        <div
+          style={{
+            position: 'absolute',
+            top: '4px',
+            left: '4px',
+            width: '6px',
+            height: '6px',
+            borderTop: `1px solid ${isLight ? 'rgba(94, 28, 44, 0.35)' : 'rgba(255, 255, 255, 0.4)'}`,
+            borderLeft: `1px solid ${isLight ? 'rgba(94, 28, 44, 0.35)' : 'rgba(255, 255, 255, 0.4)'}`,
+          }}
+          aria-hidden="true"
+        />
+      </div>
       <div style={{ textAlign: 'center' }}>
-        <div style={{ fontFamily: 'var(--font-sans)', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.12em', color: 'var(--color-text)', textTransform: 'uppercase' }}>{name}</div>
-        <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.62rem', color: 'var(--color-gold)', letterSpacing: '0.08em', marginTop: '1px' }}>{hex}</div>
-        <div style={{ fontFamily: 'var(--font-serif-refined)', fontSize: '0.78rem', fontStyle: 'italic', color: 'var(--color-text-muted)', marginTop: '2px' }}>{label}</div>
+        <div
+          style={{
+            fontFamily: 'var(--font-sans)',
+            fontSize: '0.72rem',
+            fontWeight: 700,
+            letterSpacing: '0.12em',
+            color: isWedding ? '#3B0100' : 'var(--color-text)',
+            textTransform: 'uppercase',
+          }}
+        >
+          {name}
+        </div>
+        <div
+          style={{
+            fontFamily: 'var(--font-mono)',
+            fontSize: '0.64rem',
+            color: 'var(--color-gold)',
+            letterSpacing: '0.08em',
+            marginTop: '2px',
+          }}
+        >
+          {hex}
+        </div>
+        <div
+          style={{
+            fontFamily: 'var(--font-serif-refined)',
+            fontSize: '0.8rem',
+            fontStyle: 'italic',
+            color: 'var(--color-text-muted)',
+            marginTop: '2px',
+          }}
+        >
+          {label}
+        </div>
       </div>
     </div>
   );
 }
 
-export default function AttireSection() {
+export default function AttireSection({ isEngagement = false }) {
+  const isWedding = !isEngagement;
+
+  const currentPalette = isWedding ? WEDDING_COLOR_PALETTE : ENGAGEMENT_COLOR_PALETTE;
+  const currentCards = isWedding ? WEDDING_ATTIRE_CARDS : ENGAGEMENT_ATTIRE_CARDS;
+  const currentWords = isWedding ? WEDDING_AESTHETIC_WORDS : ENGAGEMENT_AESTHETIC_WORDS;
+
   return (
     <section
       id="attire"
@@ -97,10 +208,16 @@ export default function AttireSection() {
       <div className="container">
         {/* Section Header */}
         <div className="section-header">
-          <span className="section-subtitle">DRESS CODE // AESTHETIC SPECIFICATION</span>
+          <span className="section-subtitle">
+            {isWedding
+              ? 'DRESS CODE // WEDDING AESTHETIC SPECIFICATION'
+              : 'DRESS CODE // AESTHETIC SPECIFICATION'}
+          </span>
           <h2 className="section-title">Attire &amp; Aesthetic</h2>
           <p className="section-desc">
-            Come in your favourite traditional elegance.
+            {isWedding
+              ? 'Come in traditional wedding attire in rich, elegant colors that complement our palette.'
+              : 'Come in your favourite traditional elegance.'}
           </p>
         </div>
 
@@ -111,57 +228,103 @@ export default function AttireSection() {
             gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
             gap: '24px',
             marginBottom: '72px',
-            maxWidth: '900px',
+            maxWidth: '920px',
             margin: '0 auto 72px',
           }}
         >
-          {ATTIRE_CARDS.map((card) => (
+          {currentCards.map((card) => (
             <div
               key={card.code}
               className="eng-card"
-              style={{ padding: '28px 24px' }}
+              style={{
+                padding: '30px 26px',
+                position: 'relative',
+                border: isWedding ? '1px solid rgba(94, 28, 44, 0.22)' : '1px solid var(--color-border-subtle)',
+                background: isWedding ? 'linear-gradient(180deg, #FFFFFF 0%, #FAF6F0 100%)' : 'var(--color-surface)',
+                boxShadow: isWedding ? '0 8px 24px rgba(37, 7, 29, 0.05)' : undefined,
+                transition: 'transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease',
+              }}
+              onMouseEnter={(e) => {
+                if (isWedding) {
+                  e.currentTarget.style.transform = 'translateY(-3px)';
+                  e.currentTarget.style.borderColor = 'rgba(94, 28, 44, 0.45)';
+                  e.currentTarget.style.boxShadow = '0 14px 30px rgba(94, 28, 44, 0.12)';
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (isWedding) {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.borderColor = 'rgba(94, 28, 44, 0.22)';
+                  e.currentTarget.style.boxShadow = '0 8px 24px rgba(37, 7, 29, 0.05)';
+                }
+              }}
             >
-              {/* Code tag */}
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                <span className="dim-tag">ATTIRE // {card.code}</span>
+              {/* Code tag & Color Indicator */}
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  marginBottom: '18px',
+                }}
+              >
+                <span
+                  className="dim-tag"
+                  style={{
+                    color: isWedding ? '#5E1C2C' : undefined,
+                    borderColor: isWedding ? 'rgba(94, 28, 44, 0.25)' : undefined,
+                  }}
+                >
+                  ATTIRE // {card.code}
+                </span>
                 <div
                   style={{
                     width: '32px',
                     height: '32px',
                     background: card.color,
-                    border: '1px solid var(--color-border-subtle)',
-                    borderRadius: '2px',
+                    border: card.color === '#F7F3EB'
+                      ? '1.5px solid rgba(94, 28, 44, 0.3)'
+                      : '1px solid rgba(184, 155, 94, 0.4)',
+                    borderRadius: '3px',
+                    boxShadow: '0 2px 6px rgba(0, 0, 0, 0.12)',
                   }}
+                  title={card.title}
                 />
               </div>
+
               <h3
                 style={{
                   fontFamily: 'var(--font-serif-display)',
-                  fontSize: '1.5rem',
-                  color: 'var(--color-primary)',
+                  fontSize: '1.48rem',
+                  color: isWedding ? '#3B0100' : 'var(--color-primary)',
                   marginBottom: '6px',
+                  letterSpacing: '0.02em',
                 }}
               >
                 {card.title}
               </h3>
+
               <p
                 style={{
                   fontFamily: 'var(--font-mono)',
                   fontSize: '0.72rem',
                   color: 'var(--color-gold)',
                   letterSpacing: '0.1em',
-                  marginBottom: '12px',
+                  marginBottom: '14px',
+                  textTransform: 'uppercase',
                 }}
               >
                 {card.desc}
               </p>
+
               <p
                 style={{
                   fontFamily: 'var(--font-serif-refined)',
-                  fontSize: '1rem',
+                  fontSize: '1.02rem',
                   fontStyle: 'italic',
                   color: 'var(--color-text-muted)',
-                  lineHeight: 1.6,
+                  lineHeight: 1.65,
+                  margin: 0,
                 }}
               >
                 {card.detail}
@@ -172,33 +335,61 @@ export default function AttireSection() {
 
         {/* Inclusive note */}
         <div style={{ textAlign: 'center', marginBottom: '72px' }}>
-          <DimensionLine label="DRESS IN WHAT MAKES YOU FEEL BEAUTIFUL" />
+          <DimensionLine
+            label={
+              isWedding
+                ? 'DRESS IN WHAT MAKES YOU FEEL ELEGANT & BEAUTIFUL'
+                : 'DRESS IN WHAT MAKES YOU FEEL BEAUTIFUL'
+            }
+          />
           <p
             style={{
               fontFamily: 'var(--font-serif-refined)',
-              fontSize: '1.1rem',
+              fontSize: '1.15rem',
               fontStyle: 'italic',
               color: 'var(--color-text-muted)',
               marginTop: '16px',
             }}
           >
-            Traditional attire is recommended. Dress code is a suggestion, not a requirement.
+            {isWedding
+              ? 'Traditional attire in our deep burgundy, dark cherry, or warm ivory palette is recommended. Your presence and comfort remain our greatest joy.'
+              : 'Traditional attire is recommended. Dress code is a suggestion, not a requirement.'}
           </p>
         </div>
 
         {/* Curated Color Palette */}
-        <div style={{ maxWidth: '860px', margin: '0 auto 72px' }}>
+        <div style={{ maxWidth: '880px', margin: '0 auto 72px' }}>
           <div className="section-header" style={{ marginBottom: '40px' }}>
-            <span className="section-subtitle">COLOUR CALIBRATION // WEDDING PALETTE</span>
+            <span
+              className="section-subtitle"
+              style={{ color: isWedding ? '#5E1C2C' : undefined }}
+            >
+              {isWedding
+                ? 'COLOUR CALIBRATION // SOPHISTICATED BURGUNDY PALETTE'
+                : 'COLOUR CALIBRATION // WEDDING PALETTE'}
+            </span>
             <h3
               style={{
                 fontFamily: 'var(--font-serif-display)',
-                fontSize: 'clamp(1.6rem, 3vw, 2.4rem)',
-                color: 'var(--color-primary)',
+                fontSize: 'clamp(1.7rem, 3.2vw, 2.5rem)',
+                color: isWedding ? '#3B0100' : 'var(--color-primary)',
               }}
             >
               Our Colour Story
             </h3>
+            {isWedding && (
+              <p
+                style={{
+                  fontFamily: 'var(--font-serif-refined)',
+                  fontSize: '1.05rem',
+                  fontStyle: 'italic',
+                  color: 'var(--color-text-muted)',
+                  marginTop: '6px',
+                }}
+              >
+                Deep burgundy, rich dark cherry, and black cherry tones paired with warm ivory.
+              </p>
+            )}
           </div>
 
           <div
@@ -206,38 +397,76 @@ export default function AttireSection() {
               display: 'flex',
               justifyContent: 'center',
               flexWrap: 'wrap',
-              gap: '32px',
-              padding: '40px 32px',
-              background: 'var(--color-surface)',
-              border: '1px solid var(--color-border-subtle)',
+              gap: '28px',
+              padding: '44px 32px',
+              background: isWedding
+                ? 'linear-gradient(180deg, #FFFFFF 0%, #FBF7F0 100%)'
+                : 'var(--color-surface)',
+              border: isWedding
+                ? '1.5px solid rgba(94, 28, 44, 0.25)'
+                : '1px solid var(--color-border-subtle)',
               borderRadius: 'var(--radius-sm)',
               position: 'relative',
+              boxShadow: isWedding ? '0 10px 30px rgba(37, 7, 29, 0.06)' : undefined,
             }}
           >
             {/* Blueprint corner marks */}
-            <div style={{ position: 'absolute', top: '-1px', left: '-1px', width: '16px', height: '16px', borderTop: '2px solid var(--color-primary)', borderLeft: '2px solid var(--color-primary)' }} />
-            <div style={{ position: 'absolute', bottom: '-1px', right: '-1px', width: '16px', height: '16px', borderBottom: '2px solid var(--color-primary)', borderRight: '2px solid var(--color-primary)' }} />
+            <div
+              style={{
+                position: 'absolute',
+                top: '-1px',
+                left: '-1px',
+                width: '18px',
+                height: '18px',
+                borderTop: `2.5px solid ${isWedding ? '#5E1C2C' : 'var(--color-primary)'}`,
+                borderLeft: `2.5px solid ${isWedding ? '#5E1C2C' : 'var(--color-primary)'}`,
+              }}
+            />
+            <div
+              style={{
+                position: 'absolute',
+                bottom: '-1px',
+                right: '-1px',
+                width: '18px',
+                height: '18px',
+                borderBottom: `2.5px solid ${isWedding ? '#5E1C2C' : 'var(--color-primary)'}`,
+                borderRight: `2.5px solid ${isWedding ? '#5E1C2C' : 'var(--color-primary)'}`,
+              }}
+            />
 
-            {COLOR_PALETTE.map((swatch) => (
-              <ColorSwatch key={swatch.hex} {...swatch} />
+            {currentPalette.map((swatch) => (
+              <ColorSwatch
+                key={swatch.hex}
+                {...swatch}
+                isWedding={isWedding}
+              />
             ))}
           </div>
         </div>
 
         {/* Our Aesthetic / Inspiration */}
-        <div style={{ maxWidth: '860px', margin: '0 auto' }}>
+        <div style={{ maxWidth: '880px', margin: '0 auto' }}>
           <div className="section-header" style={{ marginBottom: '36px' }}>
-            <span className="section-subtitle">VISUAL DIRECTION // THE INSPIRATION</span>
+            <span
+              className="section-subtitle"
+              style={{ color: isWedding ? '#5E1C2C' : undefined }}
+            >
+              VISUAL DIRECTION // THE INSPIRATION
+            </span>
             <h3
               style={{
                 fontFamily: 'var(--font-serif-display)',
-                fontSize: 'clamp(1.6rem, 3vw, 2.4rem)',
-                color: 'var(--color-primary)',
+                fontSize: 'clamp(1.7rem, 3.2vw, 2.5rem)',
+                color: isWedding ? '#3B0100' : 'var(--color-primary)',
               }}
             >
               Our Aesthetic
             </h3>
-            <p className="section-desc">The visual language of our love story.</p>
+            <p className="section-desc">
+              {isWedding
+                ? 'The opulent and romantic visual language of our Holy Matrimony.'
+                : 'The visual language of our love story.'}
+            </p>
           </div>
 
           <div
@@ -248,35 +477,65 @@ export default function AttireSection() {
               justifyContent: 'center',
             }}
           >
-            {AESTHETIC_WORDS.map((word, idx) => (
+            {currentWords.map((word, idx) => (
               <div
                 key={idx}
                 style={{
                   padding: '14px 22px',
-                  border: '1px solid var(--color-border-subtle)',
+                  border: isWedding
+                    ? '1px solid rgba(94, 28, 44, 0.22)'
+                    : '1px solid var(--color-border-subtle)',
                   borderRadius: 'var(--radius-sm)',
-                  background: 'var(--color-surface)',
+                  background: isWedding
+                    ? idx % 2 === 0
+                      ? 'rgba(94, 28, 44, 0.05)'
+                      : 'var(--color-surface)'
+                    : 'var(--color-surface)',
                   fontFamily: 'var(--font-mono)',
                   fontSize: '0.74rem',
                   letterSpacing: '0.16em',
                   textTransform: 'uppercase',
-                  color: idx % 2 === 0 ? 'var(--color-primary)' : 'var(--color-gold)',
+                  color: isWedding
+                    ? idx % 2 === 0
+                      ? '#5E1C2C'
+                      : '#3B0100'
+                    : idx % 2 === 0
+                    ? 'var(--color-primary)'
+                    : 'var(--color-gold)',
                   transition: 'all 0.25s ease',
                   cursor: 'default',
                   position: 'relative',
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.background = 'var(--color-bg-alt)';
-                  e.currentTarget.style.borderColor = 'var(--color-gold)';
+                  e.currentTarget.style.background = isWedding
+                    ? 'rgba(94, 28, 44, 0.12)'
+                    : 'var(--color-bg-alt)';
+                  e.currentTarget.style.borderColor = isWedding
+                    ? '#5E1C2C'
+                    : 'var(--color-gold)';
                   e.currentTarget.style.transform = 'translateY(-2px)';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.background = 'var(--color-surface)';
-                  e.currentTarget.style.borderColor = 'var(--color-border-subtle)';
+                  e.currentTarget.style.background = isWedding
+                    ? idx % 2 === 0
+                      ? 'rgba(94, 28, 44, 0.05)'
+                      : 'var(--color-surface)'
+                    : 'var(--color-surface)';
+                  e.currentTarget.style.borderColor = isWedding
+                    ? 'rgba(94, 28, 44, 0.22)'
+                    : 'var(--color-border-subtle)';
                   e.currentTarget.style.transform = 'translateY(0)';
                 }}
               >
-                <span style={{ marginRight: '8px', opacity: 0.5 }}>§</span>
+                <span
+                  style={{
+                    marginRight: '8px',
+                    opacity: 0.6,
+                    color: isWedding ? '#8E1118' : 'var(--color-gold)',
+                  }}
+                >
+                  §
+                </span>
                 {word}
               </div>
             ))}
