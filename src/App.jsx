@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import OpeningPage from './components/OpeningPage';
 import Navigation from './components/Navigation';
 import HeroSection from './components/HeroSection';
@@ -14,24 +14,43 @@ import RsvpSection from './components/RsvpSection';
 import FooterSection from './components/FooterSection';
 import CrosshairCursor from './components/CrosshairCursor';
 
+function detectInvitationMode() {
+  if (typeof window === 'undefined') return 'wedding';
+
+  const pathname = window.location.pathname.toLowerCase();
+  const hash = window.location.hash.toLowerCase();
+  const search = window.location.search.toLowerCase();
+  const params = new URLSearchParams(window.location.search);
+  const viewParam = (params.get('view') || params.get('event') || '').toLowerCase();
+
+  // Bride's invitation path
+  if (pathname.includes('/engagement') || hash.includes('engagement') || viewParam === 'engagement' || search.includes('engagement')) {
+    return 'engagement';
+  }
+
+  // Groom's invitation path or default
+  return 'wedding';
+}
+
 export default function App() {
+  const mode = useMemo(() => detectInvitationMode(), []);
+  const isEngagement = mode === 'engagement';
+
   const [showOpening, setShowOpening] = useState(true);
-  const [isEngagement, setIsEngagement] = useState(false);
   const [heroImageUrl, setHeroImageUrl] = useState(`${import.meta.env.BASE_URL}couple-hero.jpeg`);
 
-  // Detect ?view=engagement & custom hero image from URL on mount
   useEffect(() => {
+    // Set document title specifically for the isolated event
+    if (isEngagement) {
+      document.title = 'Rocilin & Jobin — Engagement Ceremony | Invitation';
+    } else {
+      document.title = 'Jobin & Rocilin — Holy Matrimony | Wedding Invitation';
+    }
+
     try {
       const params = new URLSearchParams(window.location.search);
-
-      // Auto-skip opening if returning directly to a section via hash
-      if (window.location.hash && window.location.hash.length > 1) {
-        setShowOpening(false);
-      }
-
-      const viewParam = params.get('view');
-      if (viewParam && viewParam.toLowerCase() === 'engagement') {
-        setIsEngagement(true);
+      // Auto-skip opening animation only if user is deep-linking to an anchor section
+      if (window.location.hash && window.location.hash.length > 1 && !window.location.hash.includes('engagement') && !window.location.hash.includes('wedding')) {
         setShowOpening(false);
       }
 
@@ -40,24 +59,9 @@ export default function App() {
         setHeroImageUrl(customImg);
       }
     } catch (e) {
-      console.error('Error parsing URL params:', e);
+      console.error('Error reading URL settings:', e);
     }
-  }, []);
-
-  const handleToggleView = () => {
-    setIsEngagement((prev) => {
-      const next = !prev;
-      // Update URL param so the link is shareable
-      const url = new URL(window.location.href);
-      if (next) {
-        url.searchParams.set('view', 'engagement');
-      } else {
-        url.searchParams.delete('view');
-      }
-      window.history.replaceState({}, '', url.toString());
-      return next;
-    });
-  };
+  }, [isEngagement]);
 
   const handleOpenInvitation = () => {
     setShowOpening(false);
@@ -66,8 +70,8 @@ export default function App() {
 
   return (
     <div className="wedding-app-root">
-      {/* Opening invitation overlay */}
-      {showOpening && <OpeningPage onOpen={handleOpenInvitation} />}
+      {/* Opening invitation overlay — isolated to single event with direct open button */}
+      {showOpening && <OpeningPage onOpen={handleOpenInvitation} isEngagement={isEngagement} />}
 
       {/* Blueprint corner trims */}
       <div className="page-trim-tl" aria-hidden="true" />
@@ -78,24 +82,24 @@ export default function App() {
       {/* Precision crosshair cursor */}
       <CrosshairCursor />
 
-      {/* Fixed navigation — passes toggle so user can switch Wedding / Engagement view */}
-      <Navigation isEngagement={isEngagement} onToggleView={handleToggleView} />
+      {/* Navigation — route-locked with no cross-event links or toggle */}
+      <Navigation isEngagement={isEngagement} />
 
       <main>
-        {/* ── 1. HERO ── */}
+        {/* ── 1. HERO — isolated names, date & location ── */}
         <HeroSection heroImageUrl={heroImageUrl} isEngagement={isEngagement} />
 
-        {/* ── 2. COUPLE ── */}
-        <CoupleSection />
+        {/* ── 2. COUPLE — bride first for engagement, groom first for wedding ── */}
+        <CoupleSection isEngagement={isEngagement} />
 
-        {/* ── 3. ENGAGEMENT VENUE ── */}
-        <EngagementSection />
+        {/* ── 3. ENGAGEMENT VENUE & TIMELINE — only shown for bride's family invitation ── */}
+        {isEngagement && <EngagementSection />}
 
-        {/* ── 4. CEREMONY TIMELINE (adapts between Wedding + Engagement views) ── */}
-        <ScheduleSection isEngagement={isEngagement} />
+        {/* ── 4. HOLY MATRIMONY CEREMONY TIMELINE — only shown for groom's family invitation ── */}
+        {!isEngagement && <ScheduleSection isEngagement={false} />}
 
-        {/* ── 5. VENUE / LOCATION MAP (shows extra engagement venue when toggled) ── */}
-        <VenueSection isEngagement={isEngagement} />
+        {/* ── 5. WEDDING SANCTUARY / LOCATION MAP — only shown for groom's family invitation ── */}
+        {!isEngagement && <VenueSection isEngagement={false} />}
 
         {/* ── 6. ATTIRE & AESTHETIC ── */}
         <AttireSection />
@@ -103,17 +107,19 @@ export default function App() {
         {/* ── 7. GALLERY ── */}
         <GallerySection />
 
-        {/* ── 8. COUNTDOWN ── */}
-        <CountdownSection />
+        {/* ── 8. COUNTDOWN — synchronized to the specific event's date and time ── */}
+        <CountdownSection isEngagement={isEngagement} />
 
-        {/* ── 9. BLESSINGS ── */}
-        <BlessingsSection />
+        {/* ── 9. BLESSINGS ARCHIVE — personalized couple names and date ── */}
+        <BlessingsSection isEngagement={isEngagement} />
 
-        {/* ── 10. WILL YOU JOIN US? (Attendance) ── */}
+        {/* ── 10. WILL YOU JOIN US? (Attendance) — specific event date & venue ── */}
         <RsvpSection isEngagement={isEngagement} />
       </main>
 
-      <FooterSection />
+      {/* Footer block with event-specific blueprint specifications */}
+      <FooterSection isEngagement={isEngagement} />
     </div>
   );
 }
+

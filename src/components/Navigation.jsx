@@ -1,17 +1,28 @@
 import React, { useState, useEffect } from 'react';
 
-const NAV_LINKS = [
-  { label: 'Home', href: '#hero' },
-  { label: 'Engagement', href: '#engagement' },
-  { label: 'Attire', href: '#attire' },
-  { label: 'Gallery', href: '#gallery' },
-  { label: 'Blessings', href: '#blessings' },
-];
-
-export default function Navigation({ isEngagement, onToggleView }) {
+export default function Navigation({ isEngagement }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+
+  const navLinks = isEngagement
+    ? [
+        { label: 'Home', href: '#hero' },
+        { label: 'Couple', href: '#couple' },
+        { label: 'The Engagement', href: '#engagement' },
+        { label: 'Attire', href: '#attire' },
+        { label: 'Gallery', href: '#gallery' },
+        { label: 'Blessings', href: '#blessings' },
+      ]
+    : [
+        { label: 'Home', href: '#hero' },
+        { label: 'Couple', href: '#couple' },
+        { label: 'Schedule', href: '#schedule' },
+        { label: 'Sanctuary', href: '#venue' },
+        { label: 'Attire', href: '#attire' },
+        { label: 'Gallery', href: '#gallery' },
+        { label: 'Blessings', href: '#blessings' },
+      ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -123,7 +134,7 @@ export default function Navigation({ isEngagement, onToggleView }) {
               background: 'rgba(255, 255, 255, 0.7)',
             }}
           >
-            R&amp;J
+            {isEngagement ? 'R&J' : 'J&R'}
           </div>
           <div>
             <div
@@ -136,7 +147,7 @@ export default function Navigation({ isEngagement, onToggleView }) {
                 lineHeight: 1.1,
               }}
             >
-              ROCILIN &amp; JOBIN
+              {isEngagement ? 'ROCILIN & JOBIN' : 'JOBIN & ROCILIN'}
             </div>
             <div
               style={{
@@ -146,7 +157,9 @@ export default function Navigation({ isEngagement, onToggleView }) {
                 color: 'var(--color-gold)',
               }}
             >
-              07.11.2026 // LITTLE FLOWER CHURCH
+              {isEngagement
+                ? "07.11.2026 // LITTLE FLOWER CHURCH, KADUVAKKULAM"
+                : "21.11.2026 // ST. JOSEPH'S CHURCH, THABORE, KANNUR"}
             </div>
           </div>
         </a>
@@ -160,7 +173,7 @@ export default function Navigation({ isEngagement, onToggleView }) {
           }}
           className="desktop-nav"
         >
-          {NAV_LINKS.map((link) => (
+          {navLinks.map((link) => (
             <a key={link.href} href={link.href} style={navLinkStyle}>
               {link.label}
             </a>
@@ -187,35 +200,6 @@ export default function Navigation({ isEngagement, onToggleView }) {
               <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
               <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
             </svg>
-          </button>
-
-          {/* View Toggle: Wedding ↔ Engagement */}
-          <button
-            onClick={onToggleView}
-            title={isEngagement ? 'Switch to Wedding View' : 'Switch to Engagement View'}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px',
-              padding: '6px 12px',
-              borderRadius: '20px',
-              border: '1px solid var(--color-border-subtle)',
-              background: isEngagement ? 'var(--color-primary)' : 'rgba(255, 255, 255, 0.6)',
-              color: isEngagement ? '#FFF' : 'var(--color-primary)',
-              fontFamily: 'var(--font-mono)',
-              fontSize: '0.66rem',
-              fontWeight: 600,
-              letterSpacing: '0.1em',
-              cursor: 'pointer',
-              transition: 'all 0.25s ease',
-              textTransform: 'uppercase',
-              whiteSpace: 'nowrap',
-            }}
-          >
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-              <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3" />
-            </svg>
-            {isEngagement ? 'WEDDING' : 'ENGAGEMENT'}
           </button>
 
           {/* Will You Join Us CTA */}
@@ -270,7 +254,7 @@ export default function Navigation({ isEngagement, onToggleView }) {
             gap: '14px',
           }}
         >
-          {NAV_LINKS.map((link) => (
+          {navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}

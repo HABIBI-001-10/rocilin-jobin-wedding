@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { DimensionLine } from './EngineeringSVGs';
 
-export default function CountdownSection() {
-  // Target: 07 November 2026, 11:00 AM IST (+05:30)
-  const targetDate = new Date('2026-11-07T11:00:00+05:30').getTime();
+export default function CountdownSection({ isEngagement }) {
+  // Engagement: 07 Nov 2026 11:00 IST | Wedding: 21 Nov 2026 10:30 IST
+  const targetIso = isEngagement
+    ? '2026-11-07T11:00:00+05:30'
+    : '2026-11-21T10:30:00+05:30';
+  const targetDate = new Date(targetIso).getTime();
 
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
@@ -65,7 +68,13 @@ export default function CountdownSection() {
 
         {/* Precision Dimension */}
         <div style={{ maxWidth: '520px', margin: '0 auto 36px' }}>
-          <DimensionLine label="TARGET: 07.11.2026 // 11:00:00 IST" />
+          <DimensionLine
+            label={
+              isEngagement
+                ? 'TARGET: 07.11.2026 // 11:00:00 IST'
+                : 'TARGET: 21.11.2026 // 10:30:00 IST'
+            }
+          />
         </div>
 
         {/* Ticker Box */}

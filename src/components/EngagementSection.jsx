@@ -68,7 +68,7 @@ export default function EngagementSection() {
               <ChurchBlueprintSVG size={200} />
               <div style={{ marginTop: '14px' }}>
                 <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.66rem', color: 'var(--color-gold)', letterSpacing: '0.16em' }}>
-                  ARCHITECTURAL ELEVATION // BETROTHAL VENUE
+                  ARCHITECTURAL ELEVATION // LITTLE FLOWER CHURCH
                 </span>
               </div>
             </div>
@@ -84,7 +84,7 @@ export default function EngagementSection() {
           {/* Venue details */}
           <div style={{ padding: '36px 36px 32px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '8px' }}>
-              <span className="dim-tag">BETROTHAL LOCATION // PHASE 01</span>
+              <span className="dim-tag">BETROTHAL LOCATION // ENGAGEMENT</span>
               <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', color: 'var(--color-gold)' }}>REV: 01.A</span>
             </div>
 
@@ -96,7 +96,7 @@ export default function EngagementSection() {
                 marginBottom: '6px',
               }}
             >
-              St. Mary's Auditorium
+              Little Flower Church
             </h3>
             <p
               style={{
@@ -108,7 +108,7 @@ export default function EngagementSection() {
                 letterSpacing: '0.05em',
               }}
             >
-              Bride's Parish Hall, Kaduvakkulam, Kerala
+              Kaduvakkulam, Kottayam, Kerala
             </p>
 
             {/* Spec Grid */}
@@ -126,12 +126,12 @@ export default function EngagementSection() {
             >
               <div>
                 <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', color: 'var(--color-gold)', letterSpacing: '0.15em', display: 'block', marginBottom: '4px' }}>DATE</span>
-                <p style={{ fontFamily: 'var(--font-sans)', fontSize: '1rem', fontWeight: 700, color: 'var(--color-primary)' }}>01 NOV 2026</p>
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--color-text-muted)' }}>SUNDAY</span>
+                <p style={{ fontFamily: 'var(--font-sans)', fontSize: '1rem', fontWeight: 700, color: 'var(--color-primary)' }}>07 NOV 2026</p>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--color-text-muted)' }}>SATURDAY</span>
               </div>
               <div>
                 <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', color: 'var(--color-gold)', letterSpacing: '0.15em', display: 'block', marginBottom: '4px' }}>TIME</span>
-                <p style={{ fontFamily: 'var(--font-sans)', fontSize: '1rem', fontWeight: 700, color: 'var(--color-primary)' }}>04:30 PM</p>
+                <p style={{ fontFamily: 'var(--font-sans)', fontSize: '1rem', fontWeight: 700, color: 'var(--color-primary)' }}>11:00 AM</p>
                 <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--color-text-muted)' }}>IST</span>
               </div>
               <div>
@@ -142,7 +142,7 @@ export default function EngagementSection() {
             </div>
 
             <div style={{ maxWidth: '480px', marginBottom: '28px' }}>
-              <DimensionLine label="01.11.2026 // 16:30 IST // PHASE 01" />
+              <DimensionLine label="07.11.2026 // 11:00 IST // THE ENGAGEMENT" />
             </div>
 
             <p
@@ -161,7 +161,7 @@ export default function EngagementSection() {
 
             <div style={{ borderTop: '1px dashed var(--color-border-subtle)', paddingTop: '22px' }}>
               <a
-                href="https://www.google.com/maps/search/?api=1&query=St+Marys+Church+Kaduvakkulam"
+                href="https://www.google.com/maps/search/?api=1&query=Little+Flower+Church+Kaduvakkulam+Kottayam"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-primary"

@@ -29,15 +29,6 @@ export default function HeroSection({
         justifyContent: 'center',
         overflow: 'hidden',
         padding: '100px 24px 60px',
-        backgroundImage: `
-          linear-gradient(
-            rgba(0, 0, 0, 0.02),
-            rgba(0, 0, 0, 0.02)
-          ),
-          url('/couple-hero.jpeg')
-        `,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
       }}
     >
       {/* Background Image Container with Parallax & Slow Zoom */}
@@ -50,14 +41,16 @@ export default function HeroSection({
           bottom: 0,
           backgroundImage: `url(${heroImageUrl})`,
           backgroundSize: 'cover',
-          backgroundPosition: 'center 25%',
-          transform: `scale(${1 + scrollY * 0.0003}) translateY(${scrollY * 0.2}px)`,
+          backgroundPosition: 'center 18%',
+          backgroundRepeat: 'no-repeat',
+          transform: `scale(${1 + scrollY * 0.0003}) translateY(${scrollY * 0.18}px)`,
           transition: 'transform 0.1s ease-out',
+          filter: 'brightness(0.88) contrast(1.02)',
           zIndex: 1,
         }}
       />
 
-      {/* Light Luxury Overlay */}
+      {/* Luxury Overlay — stronger top/bottom fade for text readability over portrait photo */}
       <div
         style={{
           position: 'absolute',
@@ -69,15 +62,17 @@ export default function HeroSection({
           background: `
             radial-gradient(
               ellipse at center,
-              rgba(248, 245, 239, 0.05) 0%,
+              rgba(248, 245, 239, 0.02) 0%,
               rgba(248, 245, 239, 0.08) 55%,
-              rgba(248, 245, 239, 0.22) 100%
+              rgba(248, 245, 239, 0.30) 100%
             ),
             linear-gradient(
               180deg,
-              rgba(248, 245, 239, 0.12) 0%,
-              rgba(0, 0, 0, 0.04) 50%,
-              rgba(248, 245, 239, 0.28) 100%
+              rgba(248, 245, 239, 0.55) 0%,
+              rgba(248, 245, 239, 0.08) 28%,
+              rgba(0, 0, 0, 0.02) 50%,
+              rgba(248, 245, 239, 0.15) 72%,
+              rgba(248, 245, 239, 0.60) 100%
             )
           `,
 
@@ -231,7 +226,9 @@ export default function HeroSection({
         {/* Technical Title Header Tag */}
         <div style={{ marginBottom: '18px' }}>
           <span className="dim-tag">
-            PROJECT R&amp;J // DWG NO. 07-11-26 // REV. 01: FOREVER
+            {isEngagement
+              ? 'PROJECT R&J // DWG NO. 07-11-26 // ENGAGEMENT CEREMONY'
+              : 'PROJECT R&J // DWG NO. 21-11-26 // REV. 01: FOREVER'}
           </span>
         </div>
 
@@ -239,23 +236,25 @@ export default function HeroSection({
         <div
           style={{
             maxWidth: '680px',
-            margin: '0 auto 28px',
+            margin: '0 auto 26px',
             padding: '0 16px',
           }}
         >
           <p
             style={{
               fontFamily: 'var(--font-serif-refined)',
-              fontSize: 'clamp(1.1rem, 2.2vw, 1.45rem)',
+              fontSize: 'clamp(1.15rem, 2.3vw, 1.5rem)',
               fontStyle: 'italic',
               fontWeight: 400,
               color: 'var(--color-primary)',
-              lineHeight: 1.5,
+              lineHeight: 1.55,
               letterSpacing: '0.02em',
+              margin: '0 auto',
             }}
           >
-            &ldquo;Therefore what God has joined together, let no one
-            separate.&rdquo;
+            &ldquo;Therefore what God has joined together,
+            <br />
+            let no one separate.&rdquo;
           </p>
 
           <div
@@ -264,12 +263,12 @@ export default function HeroSection({
               alignItems: 'center',
               justifyContent: 'center',
               gap: '12px',
-              marginTop: '6px',
+              marginTop: '8px',
             }}
           >
             <span
               style={{
-                width: '24px',
+                width: '28px',
                 height: '1px',
                 background: 'var(--color-gold)',
               }}
@@ -279,17 +278,17 @@ export default function HeroSection({
               style={{
                 fontFamily: 'var(--font-mono)',
                 fontSize: '0.72rem',
-                letterSpacing: '0.2em',
+                letterSpacing: '0.22em',
                 color: 'var(--color-gold)',
                 textTransform: 'uppercase',
               }}
             >
-              MARK 10:9
+              — MARK 10:9
             </span>
 
             <span
               style={{
-                width: '24px',
+                width: '28px',
                 height: '1px',
                 background: 'var(--color-gold)',
               }}
@@ -300,15 +299,19 @@ export default function HeroSection({
         {/* Invitation Introductory Line */}
         <div
           style={{
-            fontFamily: 'var(--font-sans)',
-            fontSize: '0.78rem',
-            letterSpacing: '0.28em',
-            textTransform: 'uppercase',
-            color: 'var(--color-text-muted)',
-            marginBottom: '14px',
+            fontFamily: 'var(--font-serif-refined)',
+            fontSize: 'clamp(1.05rem, 2vw, 1.3rem)',
+            letterSpacing: '0.06em',
+            fontStyle: 'italic',
+            textTransform: 'none',
+            color: 'var(--color-primary)',
+            marginBottom: '16px',
+            fontWeight: 400,
           }}
         >
-          TOGETHER WITH THEIR FAMILIES, WE REQUEST THE HONOR OF YOUR BLESSINGS
+          {isEngagement
+            ? 'We invite you to celebrate their engagement.'
+            : 'We invite you to celebrate their wedding.'}
         </div>
 
         {/* Bride & Groom Prominent Names */}
@@ -329,7 +332,7 @@ export default function HeroSection({
               textTransform: 'uppercase',
             }}
           >
-            ROCILIN
+            {isEngagement ? 'ROCILIN' : 'JOBIN'}
 
             <span
               style={{
@@ -346,7 +349,7 @@ export default function HeroSection({
               &amp;
             </span>
 
-            JOBIN
+            {isEngagement ? 'JOBIN' : 'ROCILIN'}
           </h1>
         </div>
 
@@ -357,7 +360,7 @@ export default function HeroSection({
             fontSize: '0.82rem',
             letterSpacing: '0.25em',
             color: 'var(--color-text)',
-            marginBottom: '28px',
+            marginBottom: '26px',
             fontWeight: 500,
           }}
         >
@@ -366,8 +369,12 @@ export default function HeroSection({
 
         {/* Dimension Line with Date */}
         <DimensionLine
-          label="07 NOVEMBER 2026 // 11:00 AM IST"
-          maxWidth={460}
+          label={
+            isEngagement
+              ? 'SATURDAY, 7 NOVEMBER 2026 // 11:00 AM IST'
+              : 'SATURDAY, 21 NOVEMBER 2026 // 10:30 AM IST'
+          }
+          maxWidth={500}
           color="var(--color-gold)"
         />
 
@@ -375,38 +382,18 @@ export default function HeroSection({
         <p
           style={{
             fontFamily: 'var(--font-sans)',
-            fontSize: '0.9rem',
+            fontSize: '0.92rem',
             letterSpacing: '0.12em',
             textTransform: 'uppercase',
             color: 'var(--color-text)',
             marginTop: '12px',
+            fontWeight: 500,
           }}
         >
-          LITTLE FLOWER CHURCH, KADUVAKKULAM
+          {isEngagement
+            ? "LITTLE FLOWER CHURCH, KADUVAKKULAM, KOTTAYAM, KERALA"
+            : "ST. JOSEPH'S CHURCH, THABORE, KANNUR, KERALA"}
         </p>
-
-        {/* Engagement Notice Pill */}
-        {isEngagement && (
-          <div style={{ marginTop: '16px' }}>
-            <span
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '8px',
-                padding: '6px 14px',
-                background: 'rgba(142, 17, 24, 0.08)',
-                border: '1px solid var(--color-primary)',
-                borderRadius: '20px',
-                fontFamily: 'var(--font-mono)',
-                fontSize: '0.72rem',
-                color: 'var(--color-primary)',
-                letterSpacing: '0.12em',
-              }}
-            >
-              ✦ INCLUDES PHASE 01: BETROTHAL &amp; ENGAGEMENT CEREMONY
-            </span>
-          </div>
-        )}
 
         {/* Action Buttons */}
         <div
@@ -434,9 +421,15 @@ export default function HeroSection({
             </svg>
           </a>
 
-          <a href="#engagement" className="btn-secondary">
-            OUR ENGAGEMENT
-          </a>
+          {isEngagement ? (
+            <a href="#engagement" className="btn-secondary">
+              EVENT DETAILS
+            </a>
+          ) : (
+            <a href="#schedule" className="btn-secondary">
+              CEREMONY SCHEDULE
+            </a>
+          )}
         </div>
 
         {/* Technical Blueprint Stamps Footer on Hero */}

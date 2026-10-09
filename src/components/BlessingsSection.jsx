@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { DimensionLine } from './EngineeringSVGs';
 
-export default function BlessingsSection() {
+export default function BlessingsSection({ isEngagement }) {
   const [message, setMessage] = useState('');
   const [senderName, setSenderName] = useState('');
   const [submitted, setSubmitted] = useState(false);
@@ -17,6 +17,9 @@ export default function BlessingsSection() {
     setMessage('');
     setSenderName('');
   };
+
+  const eventDateShort = isEngagement ? '07.11.2026' : '21.11.2026';
+  const coupleOrder = isEngagement ? 'Rocilin & Jobin' : 'Jobin & Rocilin';
 
   return (
     <section
@@ -45,7 +48,7 @@ export default function BlessingsSection() {
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '28px' }}>
                 <span className="dim-tag">BLESSINGS // INPUT FORM</span>
                 <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.68rem', color: 'var(--color-gold)' }}>
-                  07.11.2026
+                  {eventDateShort}
                 </span>
               </div>
 
@@ -77,7 +80,7 @@ export default function BlessingsSection() {
                   rows={5}
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  placeholder="Write a message for RociLin & Jobin..."
+                  placeholder={`Write a message for ${coupleOrder}...`}
                   className="form-textarea"
                   style={{ resize: 'vertical', minHeight: '120px' }}
                 />
@@ -167,7 +170,7 @@ export default function BlessingsSection() {
               </p>
 
               <div style={{ maxWidth: '400px', margin: '0 auto 28px' }}>
-                <DimensionLine label="ARCHIVED WITH LOVE // 07.11.2026" />
+                <DimensionLine label={`ARCHIVED WITH LOVE // ${eventDateShort}`} />
               </div>
 
               <button onClick={handleReset} className="btn-secondary">

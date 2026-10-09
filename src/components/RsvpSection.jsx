@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { DimensionLine } from './EngineeringSVGs';
 
-export default function AttendanceSection() {
+export default function AttendanceSection({ isEngagement }) {
   const [formData, setFormData] = useState({
     fullName: '',
     contact: '',
@@ -243,7 +243,13 @@ export default function AttendanceSection() {
               )}
 
               <div style={{ maxWidth: '440px', margin: '8px auto 20px' }}>
-                <DimensionLine label="07 NOVEMBER 2026 // LITTLE FLOWER CHURCH" />
+                <DimensionLine
+                  label={
+                    isEngagement
+                      ? "07 NOVEMBER 2026 // LITTLE FLOWER CHURCH"
+                      : "21 NOVEMBER 2026 // ST. JOSEPH'S CHURCH"
+                  }
+                />
               </div>
 
               {/* Submit */}
@@ -362,8 +368,14 @@ export default function AttendanceSection() {
                 {formData.attendance === 'yes' && (
                   <div><span style={{ color: 'var(--color-gold)' }}>GUESTS:</span> {formData.guestCount}</div>
                 )}
-                <div><span style={{ color: 'var(--color-gold)' }}>DATE:</span> 07 NOVEMBER 2026 // 11:00 AM IST</div>
-                <div><span style={{ color: 'var(--color-gold)' }}>VENUE:</span> LITTLE FLOWER CHURCH, KADUVAKKULAM</div>
+                <div>
+                  <span style={{ color: 'var(--color-gold)' }}>DATE:</span>{' '}
+                  {isEngagement ? '07 NOVEMBER 2026 // 11:00 AM IST' : '21 NOVEMBER 2026 // 10:30 AM IST'}
+                </div>
+                <div>
+                  <span style={{ color: 'var(--color-gold)' }}>VENUE:</span>{' '}
+                  {isEngagement ? "LITTLE FLOWER CHURCH, KADUVAKKULAM, KOTTAYAM" : "ST. JOSEPH'S CHURCH, THABORE, KANNUR"}
+                </div>
               </div>
 
               <button onClick={handleReset} className="btn-secondary">

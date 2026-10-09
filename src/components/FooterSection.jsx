@@ -1,7 +1,14 @@
 import React from 'react';
 import { ApprovedStamp, DimensionLine } from './EngineeringSVGs';
 
-export default function FooterSection() {
+export default function FooterSection({ isEngagement }) {
+  const coupleNames = isEngagement ? 'ROCILIN & JOBIN' : 'JOBIN & ROCILIN';
+  const eventDateFormatted = isEngagement ? '07 • 11 • 2026' : '21 • 11 • 2026';
+  const drawingNo = isEngagement ? '07-11-26-ENGAGEMENT' : '21-11-26-MATRIMONY';
+  const copyrightNames = isEngagement
+    ? 'ROCILIN SEBASTIAN & JOBIN MICHAEL'
+    : 'JOBIN MICHAEL & ROCILIN SEBASTIAN';
+
   return (
     <footer
       style={{
@@ -48,7 +55,7 @@ export default function FooterSection() {
 
         {/* Dimension Line with Date */}
         <div style={{ maxWidth: '420px', margin: '0 auto 36px' }}>
-          <DimensionLine label="07 • 11 • 2026" />
+          <DimensionLine label={eventDateFormatted} />
         </div>
 
         {/* Names */}
@@ -61,7 +68,7 @@ export default function FooterSection() {
             marginBottom: '6px',
           }}
         >
-          ROCILIN &amp; JOBIN
+          {coupleNames}
         </h3>
         <p
           style={{
@@ -74,6 +81,46 @@ export default function FooterSection() {
         >
           LOVE, PRECISELY ENGINEERED.
         </p>
+
+        {/* Family Greeting */}
+        {(
+          <div
+            style={{
+              maxWidth: '580px',
+              margin: '0 auto 44px',
+              padding: '20px 24px',
+              background: 'rgba(255, 255, 255, 0.65)',
+              border: '1px solid var(--color-border-subtle)',
+              borderRadius: 'var(--radius-sm)',
+            }}
+          >
+            <span
+              style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.72rem',
+                letterSpacing: '0.22em',
+                color: 'var(--color-gold)',
+                textTransform: 'uppercase',
+                display: 'block',
+                marginBottom: '8px',
+              }}
+            >
+              SHARING HAPPINESS WITH
+            </span>
+            <p
+              style={{
+                fontFamily: 'var(--font-serif-display)',
+                fontSize: 'clamp(1.15rem, 2.4vw, 1.45rem)',
+                color: 'var(--color-primary)',
+                letterSpacing: '0.04em',
+                margin: 0,
+                fontWeight: 500,
+              }}
+            >
+              Sicilin Sebastian, Merin Rose Sebastian
+            </p>
+          </div>
+        )}
 
         {/* Engineering Blueprint Title Block (Architectural Border Format) */}
         <div
@@ -99,11 +146,11 @@ export default function FooterSection() {
           >
             <div>
               <span style={{ color: 'var(--color-gold)', display: 'block' }}>PROJECT TITLE:</span>
-              <strong style={{ color: 'var(--color-primary)', fontSize: '0.74rem' }}>ROCILIN &amp; JOBIN UNION</strong>
+              <strong style={{ color: 'var(--color-primary)', fontSize: '0.74rem' }}>{coupleNames} UNION</strong>
             </div>
             <div>
               <span style={{ color: 'var(--color-gold)', display: 'block' }}>DRAWING NO:</span>
-              <span style={{ color: 'var(--color-text)' }}>07-11-26-FINAL</span>
+              <span style={{ color: 'var(--color-text)' }}>{drawingNo}</span>
             </div>
             <div>
               <span style={{ color: 'var(--color-gold)', display: 'block' }}>SCALE:</span>
@@ -126,7 +173,7 @@ export default function FooterSection() {
             letterSpacing: '0.12em',
           }}
         >
-          &copy; 2026 ROCILIN SEBASTIAN &amp; JOBIN MICHAEL. ALL RIGHTS RESERVED FOR ETERNITY.
+          &copy; 2026 {copyrightNames}. ALL RIGHTS RESERVED FOR ETERNITY.
         </div>
       </div>
     </footer>
