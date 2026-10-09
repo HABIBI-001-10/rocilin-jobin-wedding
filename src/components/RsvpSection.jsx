@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { DimensionLine } from './EngineeringSVGs';
 
-export default function AttendanceSection({ isEngagement }) {
+export default function AttendanceSection() {
   const [formData, setFormData] = useState({
     fullName: '',
     contact: '',
